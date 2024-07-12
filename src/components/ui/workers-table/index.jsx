@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import WorkerUpdate from "../../modal/worker-update"
 import { useState } from "react";
 
 import workers from "../../../service/workers";
@@ -66,12 +67,7 @@ export default function index({ data }) {
                   >
                     <DeleteIcon />
                   </button>
-                  <button
-                    onClick={() => handleClick(item)}
-                    className="text-gray-500"
-                  >
-                    <EditIcon />
-                  </button>
+                  <WorkerUpdate item={item}/>
                 </div>
               </TableCell>
             </TableRow>

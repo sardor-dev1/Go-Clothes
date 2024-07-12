@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import category from "../../../service/category";
 import product from "../../../service/products";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import {
   FormControlLabel,
   MenuItem,
@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import FormLabel from "@mui/material/FormLabel";
 import { productValidationSchema } from "@validation";
+import EditIcon from "@mui/icons-material/Edit";
+import { useParams } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -30,7 +32,7 @@ const style = {
   outline: "none",
 };
 
-export default function BasicModal() {
+export default function BasicModal({item}) {
   const [open, setOpen] = React.useState(false);
   const [categoryData, setCategoryData] = useState([]);
   const [params] = React.useState({
@@ -39,28 +41,27 @@ export default function BasicModal() {
   });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { id } = useParams()
   const initialValues = {
-    product_name: "",
-    color: "",
-    size: "",
-    made_in: "",
-    category_id: "",
-    cost: "",
-    discount: "",
-    count: "",
-    description: "",
-    age_max: "",
-    age_min: "",
-    for_gender: "",
+    product_name: item?.product_name || "" ,
+    color: item?.color ||"",
+    size: item?.size ||"",
+    made_in: item?.made_in || "",
+    category_id: item?.category_id ||"",
+    cost: item?.cost ||"",
+    discount: item?.discount ||"",
+    count: item?.count ||"",
+    description: item?.description ||"",
+    age_max: item?.age_max || "",
+    age_min: item?.age_min || "",
+    for_gender: item?.for_gender ||"",
   };
   const handleSubmit = async (data) => {
-    const newColor = data.color.split()
+    const newColor = data.color.split();
     try {
-      const response = await product.create(data);
+      const response = await product.update(data);
       console.log(response);
-      if (response.status === 201) {
         handleClose();
-      }
     } catch (e) {
       console.log(e);
     }
@@ -77,9 +78,9 @@ export default function BasicModal() {
   return (
     <div>
       <div onClick={() => categories()}>
-        <Button variant="contained" onClick={handleOpen}>
-          Add product
-        </Button>
+        <button onClick={handleOpen} className=" text-gray-500">
+          <EditIcon />
+        </button>
       </div>
       <Modal
         open={open}
@@ -100,7 +101,6 @@ export default function BasicModal() {
           <Formik
             initialValues={initialValues}
             onSubmit={handleSubmit}
-            validationSchema={productValidationSchema}
           >
             {({ isSubmitting }) => (
               <Form>
@@ -113,13 +113,6 @@ export default function BasicModal() {
                     fullWidth
                     margin="none"
                     variant="outlined"
-                    helperText={
-                      <ErrorMessage
-                        name="product_name"
-                        component="span"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
                   />
                   <Field
                     name="color"
@@ -129,13 +122,6 @@ export default function BasicModal() {
                     fullWidth
                     margin="none"
                     variant="outlined"
-                    helperText={
-                      <ErrorMessage
-                        name="color"
-                        component="span"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
                   />
                   <Field
                     name="size"
@@ -145,13 +131,6 @@ export default function BasicModal() {
                     fullWidth
                     margin="none"
                     variant="outlined"
-                    helperText={
-                      <ErrorMessage
-                        name="size"
-                        component="span"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
                   />
                   <Field
                     name="made_in"
@@ -162,13 +141,6 @@ export default function BasicModal() {
                     select
                     margin="none"
                     variant="outlined"
-                    helperText={
-                      <ErrorMessage
-                        name="made_in"
-                        component="span"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
                   >
                     <MenuItem value="Uzbekistan">Uzbekistan</MenuItem>
                     <MenuItem value="Turkey">Turkey</MenuItem>
@@ -184,13 +156,6 @@ export default function BasicModal() {
                     margin="none"
                     variant="outlined"
                     fullWidth
-                    helperText={
-                      <ErrorMessage
-                        name="category_id"
-                        component="span"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
                   >
                     <MenuItem value="">Select category</MenuItem>
                     {categoryData?.map((item, index) => (
@@ -207,13 +172,6 @@ export default function BasicModal() {
                     fullWidth
                     margin="none"
                     variant="outlined"
-                    helperText={
-                      <ErrorMessage
-                        name="cost"
-                        component="span"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
                   />
                   <Field
                     name="discount"
@@ -223,13 +181,6 @@ export default function BasicModal() {
                     fullWidth
                     margin="none"
                     variant="outlined"
-                    helperText={
-                      <ErrorMessage
-                        name="discount"
-                        component="span"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
                   />
                   <Field
                     name="count"
@@ -239,13 +190,6 @@ export default function BasicModal() {
                     fullWidth
                     margin="none"
                     variant="outlined"
-                    helperText={
-                      <ErrorMessage
-                        name="count"
-                        component="span"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
                   />
                   <Field
                     name="description"
@@ -255,13 +199,6 @@ export default function BasicModal() {
                     fullWidth
                     margin="none"
                     variant="outlined"
-                    helperText={
-                      <ErrorMessage
-                        name="description"
-                        component="span"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
                   />
                   <Field
                     name="age_max"
@@ -271,13 +208,6 @@ export default function BasicModal() {
                     fullWidth
                     margin="none"
                     variant="outlined"
-                    helperText={
-                      <ErrorMessage
-                        name="age_max"
-                        component="span"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
                   />
                   <Field
                     name="age_min"
@@ -287,13 +217,6 @@ export default function BasicModal() {
                     fullWidth
                     margin="none"
                     variant="outlined"
-                    helperText={
-                      <ErrorMessage
-                        name="age_min"
-                        component="span"
-                        className="text-[red] text-[15px]"
-                      />
-                    }
                   />
                   <Field
                     as={RadioGroup}
@@ -317,11 +240,6 @@ export default function BasicModal() {
                         label="Female"
                       />
                     </div>
-                    <ErrorMessage
-                      name="for_gender"
-                      component="span"
-                      className="text-[red] text-[15px]"
-                    />
                   </Field>
                 </div>
                 <Button

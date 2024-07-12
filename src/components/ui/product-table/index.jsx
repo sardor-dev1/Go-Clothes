@@ -10,15 +10,16 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import Paper from "@mui/material/Paper";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
+
 import products from "../../../service/products";
+import { useNavigate } from "react-router-dom";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
-const rows = [createData(1, "nimadir", "white", "XL", 4.0)];
-
 export default function index({ data }) {
+  const navigate = useNavigate()
   const deleteItem = async (id) => {
     try {
       const response = await products.delete(id);
@@ -66,7 +67,7 @@ export default function index({ data }) {
                   <button className="text-gray-500">
                     <AddPhotoAlternateIcon />
                   </button>
-                  <button className="text-gray-500">
+                  <button onClick={() => navigate(`/products/${item.product_id}`)} className="text-gray-500">
                     <VisibilityIcon />
                   </button>
                 </div>

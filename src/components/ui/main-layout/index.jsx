@@ -18,7 +18,7 @@ import routes from "../../../router/routes";
 import { NavLink, useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import MenuButton from "../../ui/menu-button";
-import MainLogo from "../../../assets/Logo.avif";
+// import MainLogo from "../../../assets/Main-logo.webp";
 
 const drawerWidth = 240;
 
@@ -44,7 +44,9 @@ function ResponsiveDrawer(props) {
   const { pathname } = useLocation();
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar>
+        {/* <img className="" src={MainLogo} alt="" /> */}
+      </Toolbar>
       <Divider />
       <List>
         {routes?.map((item, index) => (

@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import { ProductTable } from "@ui";
 import products from "../../service/products.js";
-// import { ProductTable } from "../../components/ui/product-table";
+import ProductModal from "../../components/modal/product"
 
 const index = () => {
   const [data, setData] = useState();
   const getData = async () => {
     try {
       const response = await products.get();
-      // console.log(response.data.products);
       setData(response?.data.products);
     } catch (error) {
       console.log(error);
@@ -23,13 +22,7 @@ const index = () => {
     <>
       <div className="flex flex-col gap-3">
         <div className="flex justify-end">
-          <Button
-            variant="contained"
-            type="primary"
-            onClick={() => setOpen(true)}
-          >
-            ADD
-          </Button>
+          <ProductModal/>
         </div>
         <ProductTable data={data} />
       </div>

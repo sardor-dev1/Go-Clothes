@@ -87,7 +87,6 @@ export default function index({ open, handleClose, item }) {
                   margin="normal"
                   variant="outlined"
                 />
-
                 {/* <p className='mb-3 cursor-pointer hover:text-blue' onClick={()=>setModal(true)}>Parolni unutdingizmi ?</p> */}
                 <Button
                   type="submit"

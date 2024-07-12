@@ -1,6 +1,7 @@
 import { WorkerTable } from "@ui";
 import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
+import WorkerModal from "../../components/modal/worker"
 
 import workers from "../../service/workers";
 
@@ -22,13 +23,7 @@ const index = () => {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex justify-end">
-        <Button
-          variant="contained"
-          type="primary"
-          // onClick={() => setOpen(true)}
-        >
-          ADD
-        </Button>
+        <WorkerModal/>
       </div>
       <WorkerTable data={data} />
     </div>
